@@ -17,8 +17,9 @@ This option requires some working knowledge of how to use the CLI iterface on a 
 Instructions on the full install are coming soon.
 
 ##Option 3: Use the GUI App
-1. Download the `Latest Relase` from the releases page at https://github.com/scarstens/osx_shell_batch_resizer_plus/releases/latest
-2. Double click the zip which should extract the app and open the folder where it resides.
+1. Goto the `Latest Relase` from the releases page at https://github.com/scarstens/osx_shell_batch_resizer_plus/releases/latest
+2. Download the latest release by clicking on the `Source Code (zip)` link.
+3. Open / Double click the zip which should extract the app and open the folder where it resides.
 3. Double click on the Gen_Thumbs.app file.
 4. Drag the folder which has images you want to resize into the app window.
 5. Answer the prompts.
