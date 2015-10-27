@@ -4,8 +4,15 @@ Shell script for *Mac OSX 10.10+* that uses brew+imagemagick to batch resize and
 #Installation
 #Requirements
 - Currently only runs on Mac OSX, tested on 10.10+
-- Homebrew (brew) http://brew.sh/. To install homebrew open terminal and enter: `ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
-- Homebrew Imagemagick, from CLI enter `brew install imagemagick`
+- Homebrew (brew) http://brew.sh/. To install homebrew open terminal and enter: 
+```
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
+- Homebrew Imagemagick, from CLI enter 
+```
+brew update && brew upgrade && brew install imagemagick
+```
+- XCode (https://itunes.apple.com/us/app/xcode/id497799835?mt=12)
 
 ##Option 1: Download to Images Directory and Execute Manually
 The shell script is built to automatically "resize all the images in the same folder where you place it". So your first options would be to download the shell script standalone, copy/move it to the directory with your images, and run it from there. That might look something like
