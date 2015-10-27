@@ -2,6 +2,11 @@
 Shell script for *Mac OSX 10.10+* that uses brew+imagemagick to batch resize and optimize a folder of images.
 
 #Installation
+#Requirements
+- Currently only runs on Mac OSX, tested on 10.10+
+- Homebrew (brew) http://brew.sh/. To install homebrew open terminal and enter: `ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
+- Homebrew Imagemagick, from CLI enter `brew install imagemagick`
+
 ##Option 1: Download to Images Directory and Execute Manually
 The shell script is built to automatically "resize all the images in the same folder where you place it". So your first options would be to download the shell script standalone, copy/move it to the directory with your images, and run it from there. That might look something like
 1. click on the _gen_thumbs.sh file above, then click "raw" and then do a cmd+s and choose the location of your images (lets just assume thats going to be `~/Downloads` which is your user default downloads directory.
