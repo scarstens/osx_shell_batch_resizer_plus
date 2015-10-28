@@ -3,6 +3,7 @@
 #Making Shell Script Platypus App Compatible
 #http://sveinbjorn.org/files/manpages/PlatypusDocumentation.html#11
 app_used=0;
+original_dir="$(pwd)";
 if [[  $(pwd) == *.app* ]] ; then
     echo ";App Detected by Script;";
     echo "*** *** ***";
@@ -26,6 +27,8 @@ or when FILE is -, read standard input.
     -h          display this help and exit
     -e          set file_types, defaults to jpg|jpeg|png|gif
                 ex -f jpg (searches for just sample1.jpg, sample2.jpg)
+    -o          set output type, defaults to "", keeps original file type format
+                ex -o png
     -v          verbose mode. Can be used multiple times for increased
                 verbosity.
     -s          set max height of images, default is 32 
