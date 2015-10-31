@@ -10,6 +10,7 @@ if [[  $(pwd) == *.app* ]] ; then
     echo "DRAG FOLDER TO APP TO BUILD THUMBNAILS"
     echo "*** *** ***";
     echo "App Dir: "$(pwd);
+    app_dir=$(pwd);
     cd "../../..";
     original_dir="$(pwd)";
     echo "Fixed Root Dir: "$(pwd);
@@ -81,24 +82,27 @@ function gen_thumbs() {
     #IF APP IS USED AND FOLDER IS DROPPED, BRING UP UIX QUESTIONS
     elif [[ ("$app_used" == 1) && ("$@" != "") ]] ; then
         echo "*** COCOA *** *** ***"
-        echo $(pwd);
-        echo $(ls);
+        CD="$app_dir/CocoaDialog.app/Contents/MacOS/CocoaDialog";
+        echo "Cocoa found, moving to Cocoa Dir for dialogs: $(pwd)";
         # GET EXTENSIONS
-        rv="";
-        CD="$(pwd)/CocoaDialog.app/Contents/MacOS/CocoaDialog";
+        rv="jpeg|jpg|gif|png";
         rv=`$CD standard-inputbox --title "Step 1/2:" --no-newline --informative-text "Search for which file extensions? (empty = jpeg|jpg|gif|png)"`;
         apps_dash_e=${rv:2};
+        if [[ ("$apps_dash_e" == "") ]] ; then
+            apps_dash_e="jpeg|jpg|gif|png";
+        fi
         echo "apps_dash_e: $apps_dash_e";
 
         #GET DESIRED SIZE
         rv="";
-        CD="$(pwd)/CocoaDialog.app/Contents/MacOS/CocoaDialog";
         rv=`$CD standard-inputbox --title "Step 2/2:" --no-newline --informative-text "Max height? (empty = 32)"`;
         apps_dash_s=${rv:2};
+        if [[ ("$apps_dash_s" == "") ]] ; then
+            apps_dash_s="32";
+        fi
         echo "apps_dash_s: $apps_dash_s";
 
         rv="";
-        CD="$(pwd)/CocoaDialog.app/Contents/MacOS/CocoaDialog"
         rv=`$CD msgbox --no-newline \
         --text "Verbose debugging in the output?" \
         --informative-text \
@@ -110,6 +114,8 @@ function gen_thumbs() {
         #output_extension=$apps_dash_o;
         verbose=$apps_dash_v;
         output_height_max=$apps_dash_s;
+        CD="$original_dir";
+        echo "Cocoa Dialog Finished returning to original dir: $original_dir";
     fi
 
     if [[ ("$@" != "") && (-d "$@") ]] ; then 
