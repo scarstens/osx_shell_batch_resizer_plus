@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Authentication</key>
+	<false/>
+	<key>Author</key>
+	<string>Sveinbjorn Thordarson</string>
+	<key>BundledFiles</key>
+	<array/>
+	<key>Creator</key>
+	<string>Platypus-4.9</string>
+	<key>Destination</key>
+	<string>/Users/sveinbjorn/Desktop/MyApp.app</string>
+	<key>DestinationOverride</key>
+	<false/>
+	<key>DevelopmentVersion</key>
+	<false/>
+    <key>Example</key>
+    <true/>
+    <key>ScriptName</key>
+    <string>ProgressBar.sh</string>
+    <key>Script</key>
+    <string>#!/bin/sh
+
+/usr/bin/say "This example shows you can control the progress bar."
+echo "PROGRESS:0"
+echo "Doing something"
+sleep 1
+echo "PROGRESS:10"
+sleep 1
+echo "PROGRESS:20"
+sleep 1
+echo "Showing Details"
+echo "DETAILS:SHOW"
+sleep 1
+echo "PROGRESS:30"
+sleep 1
+echo "Hiding Details"
+sleep 1
+echo "DETAILS:HIDE"
+sleep 1
+echo "Doing something else"
+echo "PROGRESS:40"
+sleep 1
+echo "PROGRESS:50"
+sleep 1
+echo "PROGRESS:60"
+sleep 1
+echo "And now for something completely different"
+echo "PROGRESS:70"
+sleep 1
+echo "Quitting application in 2 seconds"
+sleep 2
+echo "QUITAPP"
+echo "PROGRESS:80"
+sleep 1
+echo "PROGRESS:90"
+sleep 1
+echo "PROGRESS:100"
+echo "Done"</string>
+	<key>Droppable</key>
+	<false/>
+	<key>ExecutablePath</key>
+	<string>/usr/local/share/platypus/ScriptExec</string>
+	<key>FileTypes</key>
+	<array>
+		<string>****</string>
+        <string>fold</string>
+	</array>
+	<key>IconPath</key>
+	<string></string>
+	<key>Identifier</key>
+	<string>org.sveinbjorn.ProgressBar</string>
+	<key>Interpreter</key>
+	<string>/bin/sh</string>
+	<key>Name</key>
+	<string>ProgressBar</string>
+	<key>NibPath</key>
+	<string>/usr/local/share/platypus/MainMenu.nib</string>
+	<key>OptimizeApplication</key>
+	<false/>
+	<key>Output</key>
+	<string>Progress Bar</string>
+	<key>InterpreterArgs</key>
+	<array/>
+	<key>RemainRunning</key>
+	<true/>
+	<key>Role</key>
+	<string>Viewer</string>
+	<key>Secure</key>
+	<false/>
+	<key>ShowInDock</key>
+	<false/>
+	<key>Suffixes</key>
+	<array>
+		<string>*</string>
+	</array>
+	<key>TextBackground</key>
+	<string>#ffffff</string>
+	<key>TextEncoding</key>
+	<integer>4</integer>
+	<key>TextFont</key>
+	<string>Monaco</string>
+	<key>TextForeground</key>
+	<string>#000000</string>
+	<key>TextSize</key>
+	<real>10</real>
+	<key>Version</key>
+	<string>1.0</string>
+</dict>
+</plist>

@@ -1,0 +1,223 @@
+.Dd 10/12/11
+.Dt platypus 1
+.Os Darwin
+.Sh NAME
+.Nm platypus
+.Nd create Mac OS X application wrapper around a script.
+.Sh SYNOPSIS
+.Nm
+.Op Fl vh
+.Op Fl O
+.Op Fl FASDBRZ
+.Op Fl ydlHx
+.Op Fl bgn
+.Op Fl KYL
+.Op Fl P Ar profile
+.Op Fl a Ar appName
+.Op Fl o Ar outputType
+.Op Fl i Ar icon
+.Op Fl p Ar interpreter
+.Op Fl V Ar version
+.Op Fl u Ar author
+.Op Fl I Ar identifier
+.Op Fl f Ar bundledFile
+.Op Fl X Ar suffixes
+.Op Fl T Ar filetypes
+.Op Fl G Ar interpreterArgs
+.Op Fl C Ar scriptArgs
+.Ar [scriptFile] [destinationPath]
+.Sh DESCRIPTION
+.Nm
+is the command line counterpart to the Platypus Mac OS X application.  It is a tool 
+which creates a Mac OS X application bundle that executes a script when run.
+.Pp
+platypus defaults to creating application bundles, but can also create Platypus profiles that 
+can subsequently be loaded by either the command line program or the Platypus graphical application.
+.Pp
+If the scriptFile parameter is '-', platypus will read the script from STDIN.
+.Pp
+The following flags are supported (and are parsed in the order in which they are passed):
+.Pp
+.Bl -tag -width -Fl
+.It Fl O 
+Create profile file as output instead of creating an application bundle.  When you 
+select this option, the "destinationPath" paramater (i.e. the final parameter to the program) should 
+have a .platypus suffix.  Please note that in order to create reusable profiles, this option 
+requires that all paths to bundled files, icons etc. be absolute.  If you provide '-' as the output
+file, the profile property list will be dumped to STDOUT.
+.It Fl P Ar [profile]
+Loads all settings from a Platypus profile file.  You will still need to specify a destination path 
+for the application.  It is possible to override individual settings in the profile with subsequent
+parameters.
+.It Fl a Ar [appName]
+Specifies the name of the application.  This is can be different from the name of the .app
+bundle itself, and is displayed in the application's menus, "About" window and Info.plist property list.
+.It Fl o Ar [outputType]
+Specifies the script application's output type, which can be one of the following:
+.Pp
+.Ar 'None'
+The application does not display any output.
+.Pp
+.Ar 'Progress Bar'
+The application displays a progress bar while running.
+.Pp
+.Ar 'Text Window'
+The application displays a window with a text field with all script output.
+.Pp
+.Ar 'Web View'
+The application displays a window with a web view which renders script output as HTML.
+.Pp
+.Ar 'Status Menu'
+The application displays a status menu item in the menubar which runs the script and displays its output when 
+selected.
+.Pp
+.Ar 'Droplet'
+The application displays a droplet window for dropping files on for processing by the script.
+.Pp
+The default output type is "Progress Bar".
+.Pp
+.It Fl i Ar [icon]
+Specifies a file to use as icon for the application bundle. The icon file should be a regular Mac OS X .icns file.
+If not specified, the default Platypus app icon will be used. If specified, but left empty (''), no application
+icon will be set for the app. 
+.Pp
+.It Fl Q Ar [icon]
+Specifies a file to use as icon for the application's documents. Should be a Mac OS X .icns file.
+.Pp
+.It Fl p Ar [interpreter]
+Sets the interpreter for your script (e.g. /usr/bin/perl).  If the interpreter is not specified, the command line tool
+will try to guess the correct interpreter.  If this fails, the standard shell interpreter /bin/sh is used.
+.Pp
+.It Fl V Ar [version]
+Sets the application bundle's version.  This is displayed in the Info.plist
+property list and About window.
+.Pp
+.It Fl u Ar [author]
+Sets the name of the application author (e.g. "Apple Computer" or "John Smith").  If not specified, 
+it defaults to the current user's full user name.
+.Pp
+.It Fl f Ar [bundledFile]
+Specifies a file to be bundled with the script application.  This file will be copied over the Resources
+folder of the application bundle, which is the same folder in which your script will eventually reside.  
+You can specify any number of files to be bundled, but you must use the -f flag each time, since it only 
+accepts a single file path parametermyPythonScript.
+.Pp
+.It Fl I Ar [identifier]
+Sets the application's bundle identifier.  An application identifier is a reverse DNS name
+(e.g. com.apple.iTunes) that uniquely identifies your application.  If this option is left empty, 
+it will default to an identifier of the format "org.username.appname" (e.g. org.sveinbjorn.Platypus).
+.Pp
+.It Fl A
+This flag makes the application request administrator privileges via Apple's Security Framework (i.e.
+prompt for a password) and then executes the script with those privileges. For details on the nature
+of these privileges, see the Apple documentation for the AuthorizationExecuteWithPrivileges() in 
+Security.framework.  This is not quite equivalent to root privileges.
+.Pp
+.It Fl S
+Secure bundled script.  This encrypts the bundled script, to fend off prying eyes. Please note that
+nothing will make the script 'secure' from anyone knowledgable enough to get a clear text version.
+.Pp
+.It Fl D
+Makes your script application droppable, i.e. capable of receiving drag and dropped files as arguments
+to the script. The application bundle's property list is modified so that it can receive dropped files 
+in the Dock and Finder. These files are then passed on to the script as arguments via @ARGV.
+.Pp
+.It Fl F
+Makes your script application droppable, so it accepts dragged text snippets, which are passed to script 
+as arguments. 
+.Pp
+.It Fl B
+This option causes the application to run in the background.  Its icon will not appear in 
+the Dock.  This is done by registering the application with the Finder as a user interface element (LSUIElement).
+.Pp
+.It Fl R
+This option makes the application quit after the script has been executed.  
+.Pp
+.It Fl X Ar [suffixes]
+Only appropriate if you are using the -D option. This flag allows you to specify the file suffixes
+(e.g. .txt, .wav) your application can open.  This should be a |-separated string (e.g. "txt|wav|jpg").
+.It Fl Z
+Show an Open File dialog as soon as the application launches.
+.It Fl G Ar [arguments]
+Arguments for the script interpreter.  These should be specified as a |-separated string (e.g. '-w|-s|-l').
+.Pp
+.It Fl C Ar [arguments]
+Arguments to the script.  These should be specified as a |-separated string (e.g. '-w|-s|-l').
+.Pp
+.It Fl b Ar [hexColor]
+For Text Window output mode only. Set background color of text output (e.g. #ffffff).
+.Pp
+.It Fl g Ar [hexColor]
+For Text Window output mode only. Set foreground color of text output (e.g. #000000).
+.Pp
+.It Fl n Ar [fontName]
+For Text Window output mode only. Set font and fontsize for text output field (e.g. 'Monaco 10').
+.Pp
+.It Fl E Ar [encodingNumber]
+For Text Window output mode only. Set text encoding for script output.  Must be one of the numbers 
+defined in the NSString class reference (e.g. 4=UTF-8, 1=ASCII, etc.).  Default is UTF8.
+.Pp
+.It Fl K Ar [kind]
+For Status Menu output mode only.  Set display kind for Status Menu output mode.  This can be 
+"Text", "Icon and text" or "Icon".
+.Pp
+.It Fl Y Ar [title]
+For Status Menu output mode only.  Set the display title for the status item in Status Menu output mode.
+.Pp
+.It Fl L Ar [imagePath]
+For Status Menu output mode only.  Set the icon image for the status item in Status Menu output mode.  
+This must be a 16x16 pixel image in one of the image formats supported by the Cocoa APIs.
+.Pp
+.It Fl x
+Create XML format property lists instead of binary ones.
+.Pp
+.It Fl d
+Development mode.  A symlink to the original script is created inside the application bundle instead 
+of a copy.  Symlinks are also created for any bundled files.  This option is 
+incompatible with the -S option.
+.Pp
+.It Fl l
+Don't optimize application.  Platypus defaults to compiling the bundled xib file to reduce application size, 
+which makes it uneditable.  Optimization only takes place if you have Apple's XCode installed.
+.Pp
+.It Fl y
+Force mode.  With this flag set, the program will happily overwrite any previous files and folders 
+in destination path.  Use with caution.
+.Pp
+.It Fl H Ar [xibPath]
+Specify an alternate xib to copy to application bundle.  This allows you to integrate a customised 
+Platypus application xib into your build process.
+.Pp
+.It Fl v
+Print the version of this program
+.Pp
+.It Fl h
+Print help and usage string
+.Pp
+.El
+Exits 0 on success, and >0 if an error occurs.
+.Pp
+.Sh EXAMPLES
+.Pp
+platypus -P myProfile.platypus ~/Desktop/MyApplication.app
+.Pp
+platypus -o 'Text Window' script.pl PerlScript.app
+.Pp
+platypus -a 'My App' -p /usr/bin/python myPythonScript.py
+.Pp
+platypus -D -a MyDroplet -o 'Droplet' ~/droplet.sh
+.Pp
+.Sh FILES
+.Bl -tag -width "/usr/local/share/platypus/PlatypusDefault.icns" -compact
+.It Pa /usr/local/bin/platypus
+program binary
+.It Pa /usr/local/share/platypus/ScriptExec
+executable binary
+.It Pa /usr/local/share/platypus/MainMenu.nib
+Nib file for app
+.It Pa /usr/local/share/platypus/PlatypusDefault.icns
+Default icon
+.El
+.Sh AUTHORS 
+This manual page was written by Sveinbjorn Thordarson <sveinbjornt@gmail.com> 
+To support Platypus development, please visit http://sveinbjorn.org/platypus.
