@@ -148,9 +148,11 @@ function gen_thumbs() {
     fi
 
     ##################### RUN APPLIANCE #########################
+    SAVEIFS=$IFS
+    IFS=$(echo -en "\n\b")
     eval 'the_files=$( ls -1 | grep -E ".('$file_extensions')" )' ; 
     #cd $original_dir; return 0;
-    #echo "the files: "$the_files;
+    echo "the files: "$the_files;
     for f in $the_files;
     do
         filename="${f%.*}"
@@ -166,6 +168,8 @@ function gen_thumbs() {
             echo $f" thumb created"; 
         fi
     done
+
+    IFS=$SAVEIFS;
     #return directory to oringal working directory
     cd $original_dir;
 }
